@@ -10,8 +10,6 @@ esphome:
   name: ${name}
   name_add_mac_suffix: false
   friendly_name: ${friendly_name}
-  includes:
-    - esp_chip_info.h
 
 esp32:
   variant: esp32
@@ -120,17 +118,6 @@ sensor:
     #   disabled_by_default: true
     #   web_server:
     #     sorting_group_id: diagnostic_group
-  - platform: template
-      id: esp_memory
-      icon: mdi:memory
-      name: Free Memory
-      lambda: return heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024;
-      unit_of_measurement: 'kB'
-      state_class: measurement
-      entity_category: "diagnostic"
-      disabled_by_default: true
-      web_server:
-        sorting_group_id: diagnostic_group
 
 text_sensor:
   - platform: wifi_info
@@ -155,6 +142,17 @@ text_sensor:
     entity_category: "diagnostic"
     web_server:
       sorting_group_id: diagnostic_group
+  - platform: debug
+    device:
+      name: "Device Info"
+      entity_category: "diagnostic"
+      web_server:
+        sorting_group_id: diagnostic_group
+    reset_reason:
+      name: "Reset Reason"
+      entity_category: "diagnostic"
+      web_server:
+        sorting_group_id: diagnostic_group
 
 binary_sensor:
   - platform: status
