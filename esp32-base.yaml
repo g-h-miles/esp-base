@@ -10,6 +10,8 @@ esphome:
   name: ${name}
   name_add_mac_suffix: false
   friendly_name: ${friendly_name}
+  includes:
+    - esp_chip_info.h
 
 esp32:
   variant: esp32
