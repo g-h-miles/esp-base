@@ -118,6 +118,14 @@ sensor:
     #   disabled_by_default: true
     #   web_server:
     #     sorting_group_id: diagnostic_group
+  - platform: template
+    id: esp_memory
+    icon: mdi:memory
+    name: Free Memory
+    lambda: return heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024;
+    unit_of_measurement: 'kB'
+    state_class: measurement
+    entity_category: "diagnostic"
 
 text_sensor:
   - platform: wifi_info
@@ -153,6 +161,7 @@ text_sensor:
       entity_category: "diagnostic"
       web_server:
         sorting_group_id: diagnostic_group
+    
 
 binary_sensor:
   - platform: status
