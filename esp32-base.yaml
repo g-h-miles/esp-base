@@ -43,7 +43,7 @@ web_server:
       sorting_weight: 100
 
 debug:
-
+psram:
 
 sensor:
   - platform: wifi_signal
