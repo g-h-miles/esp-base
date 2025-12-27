@@ -1,0 +1,124 @@
+substitutions:
+  name: "esp-device"
+  friendly_name: "ESP Device"
+  static_ip: "0.0.0.0"
+  gateway: "192.168.1.1"
+  subnet: "255.255.255.0"
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+
+esp32:
+  variant: esp32
+  framework:
+    type: esp-idf
+
+logger:
+  baud_rate: 0
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: ${static_ip}
+    gateway: ${gateway}
+    subnet: ${subnet}
+
+web_server:
+  port: 80
+  version: 3
+  sorting_groups:
+    - id: diagnostic_group
+      name: "Diagnostics"
+      sorting_weight: 100
+
+debug:
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal dB"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+    web_server:
+      sorting_group_id: diagnostic_group
+
+  - platform: copy
+    source_id: wifi_signal_db
+    name: "WiFi Signal %"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: "diagnostic"
+    web_server:
+      sorting_group_id: diagnostic_group
+
+  - platform: uptime
+    name: "Uptime"
+    id: uptime_sensor
+    update_interval: 60s
+    entity_category: "diagnostic"
+    disabled_by_default: true
+    web_server:
+      sorting_group_id: diagnostic_group
+
+  - platform: debug
+    free:
+      name: "Heap Free"
+      entity_category: "diagnostic"
+      disabled_by_default: true
+      web_server:
+        sorting_group_id: diagnostic_group
+    block:
+      name: "Heap Max Block"
+      entity_category: "diagnostic"
+      disabled_by_default: true
+      web_server:
+        sorting_group_id: diagnostic_group
+    loop_time:
+      name: "Loop Time"
+      entity_category: "diagnostic"
+      disabled_by_default: true
+      web_server:
+        sorting_group_id: diagnostic_group
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+      entity_category: "diagnostic"
+      web_server:
+        sorting_group_id: diagnostic_group
+    ssid:
+      name: "SSID"
+      entity_category: "diagnostic"
+      web_server:
+        sorting_group_id: diagnostic_group
+    bssid:
+      name: "BSSID"
+      entity_category: "diagnostic"
+      web_server:
+        sorting_group_id: diagnostic_group
+
+  - platform: version
+    name: "ESPHome Version"
+    entity_category: "diagnostic"
+    web_server:
+      sorting_group_id: diagnostic_group
+
+binary_sensor:
+  - platform: status
+    name: "Status"
+    entity_category: "diagnostic"
+    web_server:
+      sorting_group_id: diagnostic_group
