@@ -1,6 +1,6 @@
 esp32:
+  board: esp32
   framework:
-    board: esp32
     type: esp-idf
     advanced:
       # Performance options
