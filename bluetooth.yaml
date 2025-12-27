@@ -50,3 +50,14 @@ esp32_ble_tracker:
 
 bluetooth_proxy:
   active: true
+
+binary_sensor:
+  - platform: template
+    name: "Bluetooth Proxy Active"
+    id: ble_proxy_status
+    entity_category: "diagnostic"
+    icon: "mdi:bluetooth"
+    lambda: |-
+      return true; 
+    web_server:
+      sorting_group_id: diagnostic_group
