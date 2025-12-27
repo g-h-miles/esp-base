@@ -125,7 +125,9 @@ sensor:
     lambda: return heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024;
     unit_of_measurement: 'kB'
     state_class: measurement
-    entity_category: "diagnostics"
+    entity_category: "diagnostic"
+    web_server:
+        sorting_group_id: diagnostic_group
 
 text_sensor:
   - platform: wifi_info
