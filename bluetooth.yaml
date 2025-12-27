@@ -1,0 +1,51 @@
+esp32:
+  framework:
+    type: esp-idf
+    advanced:
+      # Performance options
+      enable_lwip_tcpip_core_locking: true
+      enable_lwip_check_thread_safety: true
+
+      # Memory saving options
+      disable_libc_locks_in_iram: true
+      disable_vfs_support_termios: true
+      disable_vfs_support_select: true
+      disable_vfs_support_dir: true
+      enable_lwip_dhcp_server: false
+      enable_lwip_mdns_queries: false
+      enable_lwip_bridge_interface: false
+    
+    sdkconfig_options:
+      # BLE 4.2 is supported by ALL ESP32 boards
+      CONFIG_BT_BLE_42_FEATURES_SUPPORTED: y
+      # NOTE: BLE 5.0 is NOT supported on original ESP32. 
+      # Only enable this if using C3, S3, or H2 boards.
+      # CONFIG_BT_BLE_50_FEATURES_SUPPORTED: n
+      
+      # Increase Watchdog timeout to prevent restarts during heavy traffic
+      CONFIG_ESP_TASK_WDT_TIMEOUT_S: "10"
+
+api:
+  # Start scanning only when connected to Home Assistant
+  on_client_connected:
+     - esp32_ble_tracker.start_scan:
+        continuous: true
+  
+  # Stop scanning if NO clients are connected (saves CPU/Heat)
+  on_client_disconnected:
+    if:
+      condition:
+        not:
+          api.connected:
+      then:
+        - esp32_ble_tracker.stop_scan:
+
+esp32_ble_tracker:
+  scan_parameters:
+    continuous: False # We control this via the API automation above
+    active: True
+    interval: 320ms 
+    window: 300ms
+
+bluetooth_proxy:
+  active: true
