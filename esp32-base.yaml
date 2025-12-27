@@ -70,7 +70,7 @@ sensor:
     id: uptime_sensor
     update_interval: 60s
     entity_category: "diagnostic"
-    disabled_by_default: true
+    # disabled_by_default: true
     web_server:
       sorting_group_id: diagnostic_group
 
@@ -78,19 +78,19 @@ sensor:
     free:
       name: "Heap Free"
       entity_category: "diagnostic"
-      disabled_by_default: true
+      # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
     block:
       name: "Heap Max Block"
       entity_category: "diagnostic"
-      disabled_by_default: true
+      # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
     loop_time:
       name: "Loop Time"
       entity_category: "diagnostic"
-      disabled_by_default: true
+      # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
     # fragmentation:
@@ -102,14 +102,14 @@ sensor:
     cpu_frequency:
       name: "CPU Frequency"
       entity_category: "diagnostic"
-      disabled_by_default: true
+      # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
 
   - platform: internal_temperature
     name: "Internal Temperature"
     entity_category: "diagnostic"
-    disabled_by_default: true
+    # disabled_by_default: true
     web_server:
       sorting_group_id: diagnostic_group
     # psram:
