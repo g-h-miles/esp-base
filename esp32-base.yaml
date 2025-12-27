@@ -91,6 +91,24 @@ sensor:
       disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
+    fragmentation:
+      name: "Heap Fragmentation"
+      entity_category: "diagnostic"
+      disabled_by_default: true
+      web_server:
+        sorting_group_id: diagnostic_group
+    psram:
+      name: "Free PSRAM"
+      entity_category: "diagnostic"
+      disabled_by_default: true
+      web_server:
+        sorting_group_id: diagnostic_group
+    cpu_frequency:
+      name: "CPU Frequency"
+      entity_category: "diagnostic"
+      disabled_by_default: true
+      web_server:
+        sorting_group_id: diagnostic_group
 
 text_sensor:
   - platform: wifi_info
