@@ -43,7 +43,7 @@ web_server:
       sorting_weight: 100
 
 debug:
-psram:
+# psram:
 
 sensor:
   - platform: wifi_signal
@@ -104,12 +104,12 @@ sensor:
       disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
-    psram:
-      name: "Free PSRAM"
-      entity_category: "diagnostic"
-      disabled_by_default: true
-      web_server:
-        sorting_group_id: diagnostic_group
+    # psram:
+    #   name: "Free PSRAM"
+    #   entity_category: "diagnostic"
+    #   disabled_by_default: true
+    #   web_server:
+    #     sorting_group_id: diagnostic_group
 
 text_sensor:
   - platform: wifi_info
@@ -134,6 +134,26 @@ text_sensor:
     entity_category: "diagnostic"
     web_server:
       sorting_group_id: diagnostic_group
+
+  - platform: template
+    name: "ESP-IDF Version"
+    icon: mdi:code-braces
+    entity_category: "diagnostic"
+    web_server:
+      sorting_group_id: diagnostic_group
+    lambda: |-
+      return {esp_get_idf_version()};
+
+  - platform: template
+    name: "Chip Cores"
+    icon: mdi:cpu-64-bit
+    entity_category: "diagnostic"
+    web_server:
+      sorting_group_id: diagnostic_group
+    lambda: |-
+      esp_chip_info_t chip_info;
+      esp_chip_info(&chip_info);
+      return to_string(chip_info.cores);
 
 binary_sensor:
   - platform: status
