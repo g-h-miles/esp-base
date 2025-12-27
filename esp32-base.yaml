@@ -45,8 +45,6 @@ web_server:
 debug:
 
 psram:
-  mode: octal
-  speed: 80MHz
 
 sensor:
   - platform: wifi_signal
