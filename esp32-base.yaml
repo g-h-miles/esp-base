@@ -11,10 +11,10 @@ esphome:
   friendly_name: ${friendly_name}
 
 esp32:
-  variant: esp32
+  board: esp32
   framework:
-    type: esp-idf
-
+    type: esp-idf  # This is important: the default "arduino" framework does not perform well.
+      
 logger:
   baud_rate: 0
 
