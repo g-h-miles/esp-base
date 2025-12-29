@@ -1,10 +1,9 @@
 substitutions:
-  name: "esp-device"
-  friendly_name: "ESP Device"
-  static_ip: "0.0.0.0"
-  gateway: "192.168.1.1"
-  subnet: "255.255.255.0"
-
+  name: 'esp-device'
+  friendly_name: 'ESP Device'
+  static_ip: '0.0.0.0'
+  gateway: '192.168.1.1'
+  subnet: '255.255.255.0'
 
 esphome:
   name: ${name}
@@ -14,8 +13,8 @@ esphome:
 esp32:
   variant: esp32
   framework:
-    type: esp-idf  # This is important: the default "arduino" framework does not perform well.
-      
+    type: esp-idf # This is important: the default "arduino" framework does not perform well.
+
 logger:
   baud_rate: 0
 
@@ -41,7 +40,7 @@ web_server:
   local: true
   sorting_groups:
     - id: diagnostic_group
-      name: "Diagnostics"
+      name: 'Diagnostics'
       sorting_weight: 100
 
 debug:
@@ -49,48 +48,48 @@ debug:
 
 sensor:
   - platform: wifi_signal
-    name: "WiFi Signal dB"
+    name: 'WiFi Signal dB'
     id: wifi_signal_db
     update_interval: 60s
-    entity_category: "diagnostic"
+    entity_category: 'diagnostic'
     web_server:
       sorting_group_id: diagnostic_group
 
   - platform: copy
     source_id: wifi_signal_db
-    name: "WiFi Signal %"
+    name: 'WiFi Signal %'
     filters:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
-    unit_of_measurement: "%"
-    entity_category: "diagnostic"
+    unit_of_measurement: '%'
+    entity_category: 'diagnostic'
     web_server:
       sorting_group_id: diagnostic_group
 
   - platform: uptime
-    name: "Uptime"
+    name: 'Uptime'
     id: uptime_sensor
     update_interval: 60s
-    entity_category: "diagnostic"
+    entity_category: 'diagnostic'
     # disabled_by_default: true
     web_server:
       sorting_group_id: diagnostic_group
 
   - platform: debug
     free:
-      name: "Heap Free"
-      entity_category: "diagnostic"
+      name: 'Heap Free'
+      entity_category: 'diagnostic'
       # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
     block:
-      name: "Heap Max Block"
-      entity_category: "diagnostic"
+      name: 'Heap Max Block'
+      entity_category: 'diagnostic'
       # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
     loop_time:
-      name: "Loop Time"
-      entity_category: "diagnostic"
+      name: 'Loop Time'
+      entity_category: 'diagnostic'
       # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
@@ -101,15 +100,15 @@ sensor:
     #   web_server:
     #     sorting_group_id: diagnostic_group
     cpu_frequency:
-      name: "CPU Frequency"
-      entity_category: "diagnostic"
+      name: 'CPU Frequency'
+      entity_category: 'diagnostic'
       # disabled_by_default: true
       web_server:
         sorting_group_id: diagnostic_group
 
   - platform: internal_temperature
-    name: "Internal Temperature"
-    entity_category: "diagnostic"
+    name: 'Internal Temperature'
+    entity_category: 'diagnostic'
     # disabled_by_default: true
     web_server:
       sorting_group_id: diagnostic_group
@@ -126,49 +125,48 @@ sensor:
     lambda: return heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024;
     unit_of_measurement: 'kB'
     state_class: measurement
-    entity_category: "diagnostic"
+    entity_category: 'diagnostic'
     web_server:
-        sorting_group_id: diagnostic_group
+      sorting_group_id: diagnostic_group
 
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "IP Address"
-      entity_category: "diagnostic"
+      name: 'IP Address'
+      entity_category: 'diagnostic'
       web_server:
         sorting_group_id: diagnostic_group
     ssid:
-      name: "SSID"
-      entity_category: "diagnostic"
+      name: 'SSID'
+      entity_category: 'diagnostic'
       web_server:
         sorting_group_id: diagnostic_group
     bssid:
-      name: "BSSID"
-      entity_category: "diagnostic"
+      name: 'BSSID'
+      entity_category: 'diagnostic'
       web_server:
         sorting_group_id: diagnostic_group
 
   - platform: version
-    name: "ESPHome Version"
-    entity_category: "diagnostic"
+    name: 'ESPHome Version'
+    entity_category: 'diagnostic'
     web_server:
       sorting_group_id: diagnostic_group
   - platform: debug
     device:
-      name: "Device Info"
-      entity_category: "diagnostic"
+      name: 'Device Info'
+      entity_category: 'diagnostic'
       web_server:
         sorting_group_id: diagnostic_group
     reset_reason:
-      name: "Reset Reason"
-      entity_category: "diagnostic"
+      name: 'Reset Reason'
+      entity_category: 'diagnostic'
       web_server:
         sorting_group_id: diagnostic_group
-    
 
 binary_sensor:
   - platform: status
-    name: "Status"
-    entity_category: "diagnostic"
+    name: 'Status'
+    entity_category: 'diagnostic'
     web_server:
       sorting_group_id: diagnostic_group
