@@ -66,11 +66,11 @@ binary_sensor:
     lambda: |-
       return true;
     web_server:
-      sorting_group_id: diagnostic_group
+      sorting_group_id: diagnostic_group_bt
 
 web_server:
   version: 3
   sorting_groups:
-    - id: diagnostic_group
+    - id: diagnostic_group_bt
       name: 'Diagnostics'
       sorting_weight: 100
